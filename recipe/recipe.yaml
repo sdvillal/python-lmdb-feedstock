@@ -16,6 +16,10 @@ source:
 build:
   number: 1
   script:
+    - if: linux-aarch64
+      then:
+        - export CFLAGS="${CFLAGS} -pthread"
+        - export CXXFLAGS="${CXXFLAGS} -pthread"
     - ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
