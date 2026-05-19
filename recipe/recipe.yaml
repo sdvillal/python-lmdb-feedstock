@@ -18,6 +18,7 @@ build:
   script: |
     export CFLAGS="${CFLAGS} -pthread"
     export CXXFLAGS="${CXXFLAGS} -pthread"
+    export LDFLAGS="${LDFLAGS} -pthread"
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip:
     - not aarch64
