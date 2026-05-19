@@ -55,6 +55,7 @@ tests:
       run:
         - pytest
     script:
+      - conda inspect linkages -p $PREFIX python-lmdb || true
       - ldd $PREFIX/lib/python*/site-packages/lmdb/*.so
       - LD_LIBRARY_PATH=$PREFIX/lib pytest
 
