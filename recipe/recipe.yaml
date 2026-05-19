@@ -22,7 +22,7 @@ build:
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip:
     - not aarch64
-
+    - match(python, "<3.14")
 
 requirements:
   build:
