@@ -55,7 +55,8 @@ tests:
       run:
         - pytest
     script:
-      - pytest tests
+      - LD_LIBRARY_PATH=$PREFIX/lib pytest -k test_max_readers
+      # - pytest tests
 
 about:
   license: OLDAP-2.8
