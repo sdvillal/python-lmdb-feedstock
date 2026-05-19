@@ -19,7 +19,8 @@ build:
     export CFLAGS="${CFLAGS} -pthread"
     export CXXFLAGS="${CXXFLAGS} -pthread"
     export LDFLAGS="${LDFLAGS} -pthread"
-    ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv    
+    export LMDB_FORCE_SYSTEM=1
+    ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
     find $SP_DIR/lmdb -name "*.so" -print -exec patchelf \
         --force-rpath \
         --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
@@ -46,8 +47,10 @@ requirements:
       then: patch-ng
     - pip
     - patchelf
+    - lmdb
   run:
     - python
+    - lmdb
 
 tests:
   - python:
