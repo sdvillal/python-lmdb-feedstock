@@ -20,7 +20,7 @@ build:
     export CXXFLAGS="${CXXFLAGS} -pthread"
     export LDFLAGS="${LDFLAGS} -pthread"
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-    find $SP_DIR/lmdb -name "*.so" -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
+    # find $SP_DIR/lmdb -name "*.so" -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
 
   skip:
     - not aarch64
@@ -59,7 +59,7 @@ tests:
     script:
       - conda inspect linkages -p $PREFIX python-lmdb || true
       - ldd $PREFIX/lib/python*/site-packages/lmdb/*.so
-      - LD_LIBRARY_PATH=$PREFIX/lib pytest
+      - pytest
 
 about:
   license: OLDAP-2.8
