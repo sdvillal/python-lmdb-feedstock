@@ -56,8 +56,7 @@ tests:
         - pytest
     script:
       - ldd $PREFIX/lib/python*/site-packages/lmdb/*.so
-      - LD_LIBRARY_PATH=$PREFIX/lib pytest -k test_max_readers
-      # - pytest tests
+      - LD_LIBRARY_PATH=$PREFIX/lib pytest
 
 about:
   license: OLDAP-2.8
