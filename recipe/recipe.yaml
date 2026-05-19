@@ -36,7 +36,6 @@ requirements:
     - pip
   run:
     - python
-    - cffi
 
 tests:
   - python:
