@@ -19,8 +19,10 @@ build:
     export CFLAGS="${CFLAGS} -pthread"
     export CXXFLAGS="${CXXFLAGS} -pthread"
     export LDFLAGS="${LDFLAGS} -pthread"
-    ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-    # find $SP_DIR/lmdb -name "*.so" -exec patchelf --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
+    ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv    
+    find $SP_DIR/lmdb -name "*.so" -print -exec patchelf \
+        --force-rpath \
+        --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
 
   skip:
     - not aarch64
@@ -43,6 +45,7 @@ requirements:
     - if: win
       then: patch-ng
     - pip
+    - patchelf
   run:
     - python
 
@@ -57,8 +60,14 @@ tests:
       run:
         - pytest
     script:
+      # Verify linkage
+      - echo "==== LDD ===="
       - conda inspect linkages -p $PREFIX python-lmdb || true
       - ldd $PREFIX/lib/python*/site-packages/lmdb/*.so
+      - ldd $SP_DIR/lmdb/*.so || true
+      - echo "==== RPATH ===="
+      - readelf -d $SP_DIR/lmdb/*.so | grep -i path || true
+      # Test
       - pytest
 
 about:
