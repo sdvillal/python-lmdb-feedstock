@@ -16,14 +16,14 @@ source:
 build:
   number: 1
   script: |
-    export CFLAGS="${CFLAGS} -pthread"
-    export CXXFLAGS="${CXXFLAGS} -pthread"
-    export LDFLAGS="${LDFLAGS} -pthread"
+#    export CFLAGS="${CFLAGS} -pthread"
+#    export CXXFLAGS="${CXXFLAGS} -pthread"
+#    export LDFLAGS="${LDFLAGS} -pthread"
     export LMDB_FORCE_SYSTEM=1
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-    find $SP_DIR/lmdb -name "*.so" -print -exec patchelf \
-        --force-rpath \
-        --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
+#    find $SP_DIR/lmdb -name "*.so" -print -exec patchelf \
+#        --force-rpath \
+#        --set-rpath '$ORIGIN:$ORIGIN/..:$PREFIX/lib' {} \;
 
   skip:
     - not aarch64
