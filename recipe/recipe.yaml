@@ -16,7 +16,6 @@ source:
 build:
   number: 1
   script: |
-    export LMDB_FORCE_SYSTEM=1
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
@@ -41,10 +40,8 @@ requirements:
       then: patch-ng
     - pip
     - patchelf
-    - lmdb
   run:
     - python
-    - lmdb
 
 tests:
   - python:
