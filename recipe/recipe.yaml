@@ -17,6 +17,7 @@ build:
   number: 1
   script: |
     export LDFLAGS="${LDFLAGS} -pthread"
+    export LMDB_FORCE_SYSTEM=1
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
@@ -25,6 +26,7 @@ build:
 
 requirements:
   build:
+    # Bring back cross-compilation for pcc64le
     - ${{ stdlib("c") }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
@@ -37,12 +39,10 @@ requirements:
       then: patch-ng
     - pip
     - patchelf
+    - lmdb
   run:
     - python
-    - cffi
-    - setuptools
-    - c-compiler
-    - cxx-compiler
+    - lmdb
 
 tests:
   - python:
@@ -53,6 +53,7 @@ tests:
         - tests
     requirements:
       run:
+        - export LMDB_PURE=1
         - pytest
     script:
       # Verify linkage
