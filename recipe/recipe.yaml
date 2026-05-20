@@ -40,6 +40,8 @@ requirements:
     - python
     - cffi
     - setuptools
+    - c-compiler
+    - cxx-compiler
 
 tests:
   - python:
