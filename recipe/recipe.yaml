@@ -16,6 +16,7 @@ source:
 build:
   number: 1
   script: |
+    export LDFLAGS="${LDFLAGS} -pthread"
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
