@@ -24,12 +24,8 @@ build:
 
 requirements:
   build:
-    - if: build_platform != target_platform
-      then:
-        - python
-        - cross-python_${{ target_platform }}
-    - ${{ compiler('c') }}
     - ${{ stdlib("c") }}
+    - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - if: unix
       then: patch
@@ -42,6 +38,8 @@ requirements:
     - patchelf
   run:
     - python
+    - cffi
+    - setuptools
 
 tests:
   - python:
