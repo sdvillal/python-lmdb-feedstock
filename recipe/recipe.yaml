@@ -49,10 +49,10 @@ tests:
         - tests
     requirements:
       run:
-        - pytest --deselect tests/cursor_test.py::CursorTest::test_preload
+        - pytest
     script: |
       export TMPDIR=/dev/shm
-      pytest
+      pytest --deselect tests/cursor_test.py::CursorTest::test_preload
 
 about:
   license: OLDAP-2.8
