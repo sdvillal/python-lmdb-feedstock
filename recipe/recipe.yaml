@@ -57,10 +57,10 @@ tests:
         then: |
           # Diagnostic: run test_max_readers against the PyPI wheel to
           # determine whether the crash is in our build or the runner.
-          python -m venv /tmp/pypi-venv
-          /tmp/pypi-venv/bin/pip install lmdb pytest
-          /tmp/pypi-venv/bin/python -m pytest || \
-              echo "PyPI wheel ALSO crashes — runner-side issue"
+          # python -m venv /tmp/pypi-venv
+          # /tmp/pypi-venv/bin/pip install lmdb pytest
+          # /tmp/pypi-venv/bin/python -m pytest || \
+          #     echo "PyPI wheel ALSO crashes — runner-side issue"
           # What about our build?
           pytest -k "not test_max_readers" -vvv
         else: pytest -vvv
