@@ -16,7 +16,6 @@ source:
 build:
   number: 1
   script: |
-    export LDFLAGS="${LDFLAGS} -Wl,-u,pthread_atfork -l:libc_nonshared.a"
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
@@ -42,6 +41,9 @@ requirements:
     - python
 
 tests:
+  - python:
+      imports:
+        - lmdb
   - files:
       source:
         - tests
@@ -49,26 +51,7 @@ tests:
       run:
         - pytest
     script:
-      # Verify linkage
-      - echo "==== LDD ===="
-      - conda inspect linkages -p $PREFIX python-lmdb || true
-      - ldd $PREFIX/lib/python*/site-packages/lmdb/*.so
-      - ldd $SP_DIR/lmdb/*.so || true
-      - echo "==== RPATH ===="
-      - readelf -d $SP_DIR/lmdb/*.so | grep -i path || true
-      # Check as_needed
-      - echo "==== NEEDED ===="
-      - readelf -d $PREFIX/lib/python3.14/site-packages/lmdb/cpython*.so | grep NEEDED
-      - echo "nm -D $PREFIX/lib/python3.14/site-packages/lmdb/cpython*.so | grep atfork"
-      - nm -D $PREFIX/lib/python*/site-packages/lmdb/cpython*.so | grep -E "atfork|register_atfork"
-      # - echo "nm -D /lib/aarch64-linux-gnu/libpthread.so.0 | grep atfork"
-      # - nm -D /lib/aarch64-linux-gnu/libpthread.so.0 | grep atfork  # runtime host
-      # - nm -D $BUILD_PREFIX/$HOST/sysroot/lib64/libpthread.so.0 | grep atfork  # build sysroot
-      # Test
       - pytest
-  - python:
-      imports:
-        - lmdb
 
 about:
   license: OLDAP-2.8
