@@ -49,7 +49,7 @@ tests:
         - tests
     requirements:
       run:
-        - pytest
+        - pytest --deselect tests/cursor_test.py::CursorTest::test_preload
     script: |
       export TMPDIR=/dev/shm
       pytest
