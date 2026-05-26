@@ -50,8 +50,9 @@ tests:
     requirements:
       run:
         - pytest
-    script:
-      - pytest
+    script: |
+      export TMPDIR=/dev/shm
+      pytest
 
 about:
   license: OLDAP-2.8
