@@ -16,7 +16,7 @@ source:
 build:
   number: 1
   script:
-    - if: aarch64
+    - if: aarch64 or pcl64le
       then: |
         export CFLAGS="${CFLAGS} -pthread"
     - ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
