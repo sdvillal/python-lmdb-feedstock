@@ -52,7 +52,7 @@ tests:
         - pytest
     script: |
       export TMPDIR=/dev/shm
-      pytest --deselect tests/cursor_test.py::CursorTest::test_preload
+      pytest -k "not test_preload" -vvv
 
 about:
   license: OLDAP-2.8
