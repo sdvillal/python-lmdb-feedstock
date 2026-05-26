@@ -16,8 +16,7 @@ source:
 build:
   number: 1
   script: |
-    export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lpthread -Wl,--as-needed"
-    export LMDB_FORCE_SYSTEM=1
+    export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lpthread -Wl,--as-needed"    
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
@@ -39,10 +38,8 @@ requirements:
       then: patch-ng
     - pip
     - patchelf
-    - lmdb
   run:
     - python
-    - lmdb
 
 tests:
   - python:
@@ -62,6 +59,9 @@ tests:
       - ldd $SP_DIR/lmdb/*.so || true
       - echo "==== RPATH ===="
       - readelf -d $SP_DIR/lmdb/*.so | grep -i path || true
+      # Check as_needed
+      - echo "==== NEEDED ===="
+      - readelf -d $PREFIX/lib/python3.14/site-packages/lmdb/cpython*.so | grep NEEDED
       # Test
       - pytest
 
