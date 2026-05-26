@@ -18,7 +18,7 @@ build:
   script:
     - if: aarch64
       then: |
-        export CXXFLAGS="${CXXFLAGS} -pthread"
+        export CFLAGS="${CFLAGS} -pthread"
     - ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
@@ -29,7 +29,7 @@ requirements:
   build:
     # Bring back cross-compilation for pcc64le
     - ${{ stdlib("c") }}
-    - ${{ compiler('cxx') }}
+    - ${{ compiler('c') }}
     - if: unix
       then: patch
   host:
