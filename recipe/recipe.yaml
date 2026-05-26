@@ -49,8 +49,10 @@ tests:
     requirements:
       run:
         - pytest
-    script: |
-      pytest -k "not test_max_readers" -vvv
+    script:
+      - if: linux and aarch64
+        then: pytest -k "not test_max_readers" -vvv
+        else: pytest -vvv
 
 about:
   license: OLDAP-2.8
