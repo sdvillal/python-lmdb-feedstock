@@ -16,7 +16,7 @@ source:
 build:
   number: 1
   script: |
-    export LDFLAGS="${LDFLAGS} -Wl,-u,pthread_atfork -l:libc_nonshared.a -Wl,--no-undefined"
+    export LDFLAGS="${LDFLAGS} -Wl,-u,pthread_atfork -l:libc_nonshared.a"
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
