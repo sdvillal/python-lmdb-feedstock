@@ -55,10 +55,6 @@ tests:
     script:
       - if: linux and aarch64
         then: |
-          # Test: does the wheel also fail?
-#          conda uninstall python-lmdb -y
-#          pip install lmdb --no-cache-dir
-#          pytest -vvv
           pytest -k "not test_max_readers" -vvv
         else: pytest -vvv
 
