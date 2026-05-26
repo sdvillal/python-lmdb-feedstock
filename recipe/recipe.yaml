@@ -36,7 +36,6 @@ requirements:
     - if: win
       then: patch-ng
     - pip
-    - patchelf
   run:
     - python
 
