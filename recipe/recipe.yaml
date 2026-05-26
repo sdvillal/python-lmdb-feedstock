@@ -15,8 +15,12 @@ source:
 
 build:
   number: 1
-  script: |
-    ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  script:
+    - if: aarch64
+      then: |
+        export CFLAGS="${CFLAGS} -pthread"
+        export CXXFLAGS="${CXXFLAGS} -pthread"
+    - ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
   skip:
     - not aarch64
