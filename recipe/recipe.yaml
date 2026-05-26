@@ -16,7 +16,7 @@ source:
 build:
   number: 1
   script: |
-    export LDFLAGS="${LDFLAGS} -pthread"
+    export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lpthread -Wl,--as-needed"
     export LMDB_FORCE_SYSTEM=1
     ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
@@ -63,7 +63,6 @@ tests:
       - echo "==== RPATH ===="
       - readelf -d $SP_DIR/lmdb/*.so | grep -i path || true
       # Test
-      - export LMDB_PURE=1
       - pytest
 
 about:
