@@ -55,11 +55,11 @@ tests:
         - pytest
     script:
       - if: linux and aarch64
-        then:
-          - export TMPDIR="$HOME/lmdb-tmp"
-          - mkdir -p "$TMPDIR"
-          - df -hT "\$TMPDIR"
-          - pytest -vvv
+        then: |
+          export TMPDIR="$HOME/lmdb-tmp"
+          mkdir -p "$TMPDIR"
+          df -hT "$TMPDIR"
+          pytest -vvv
           # - pytest -k "not test_max_readers" -vvv
         else: pytest -vvv
 
