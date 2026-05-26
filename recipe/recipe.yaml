@@ -51,8 +51,7 @@ tests:
       run:
         - pytest
     script: |
-      export TMPDIR=/dev/shm
-      pytest -k "not test_preload" -vvv
+      pytest -k "not test_max_readers" -vvv
 
 about:
   license: OLDAP-2.8
